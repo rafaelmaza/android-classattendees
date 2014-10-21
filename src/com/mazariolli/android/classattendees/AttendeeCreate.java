@@ -19,7 +19,12 @@ public class AttendeeCreate extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(AttendeeCreate.this, "Clicou Salvar", Toast.LENGTH_SHORT).show();
+				AttendeeCreateHelper helper = new AttendeeCreateHelper(AttendeeCreate.this);
+				Attendee attendee = helper.getAttendee();
+				AttendeeDAO dao = new AttendeeDAO(AttendeeCreate.this);
+				dao.insert(attendee);
+				dao.close();
+//				Toast.makeText(AttendeeCreate.this, attendee.getScore().toString(), Toast.LENGTH_SHORT).show();
 				finish();
 			}
 		});

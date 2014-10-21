@@ -67,8 +67,9 @@
 	    
 	    <RatingBar
 	        android:numStars="5"
-	        android:max="5"
-	        android:layout_width="match_parent"
+	        android:rating="2.5"
+	        android:stepSize="0.5"
+	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:id="@+id/activity_attendee_create__score" />
 	

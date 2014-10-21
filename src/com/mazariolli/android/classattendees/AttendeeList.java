@@ -1,12 +1,19 @@
 package com.mazariolli.android.classattendees;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
@@ -15,18 +22,28 @@ import android.widget.Toast;
 
 public class AttendeeList extends Activity {
 	
-	private String[] names = {"Rafael","Alessandra","Rosana"};
-	private ListView attendeesList;
+	private AttendeeDAO dao;
+	private ListView attendeesListView;
+	private List<Attendee> attendees;
+	
+	private void loadAttendees() {
+		attendees = dao.findAll();
+        ArrayAdapter<Attendee> attendeesAdapter = new ArrayAdapter<Attendee>(this, android.R.layout.simple_list_item_1, attendees);
+        attendeesListView.setAdapter(attendeesAdapter);
+	}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendee_list);
         
-        attendeesList = (ListView) findViewById(R.id.activity_attendees_list__attendee_list);
-        ArrayAdapter<String> attendeesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names);
-        attendeesList.setAdapter(attendeesAdapter);
-        attendeesList.setOnItemClickListener(new OnItemClickListener() {
+        // initialize variables
+        dao = new AttendeeDAO(this);
+        attendeesListView = (ListView) findViewById(R.id.activity_attendees_list__attendee_list);
+        attendees = new ArrayList<Attendee>();
+        
+        // set listeners
+        attendeesListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> adapter, View view, int pos,
@@ -37,23 +54,43 @@ public class AttendeeList extends Activity {
         	
         });
         
-        attendeesList.setOnItemLongClickListener(new OnItemLongClickListener() {
-
-			@Override
-			public boolean onItemLongClick(AdapterView<?> adapter, View view, int pos,
-					long id) {
-				String attendee = (String) adapter.getItemAtPosition(pos);
-				Toast.makeText(AttendeeList.this, attendee, Toast.LENGTH_LONG).show();
-				return true;
-			}
-        	
-        });
+        registerForContextMenu(attendeesListView);
+        
+//        attendeesListView.setOnItemLongClickListener(new OnItemLongClickListener() {
+//
+//			@Override
+//			public boolean onItemLongClick(AdapterView<?> adapter, View view, int pos,
+//					long id) {
+//				String attendee = (String) adapter.getItemAtPosition(pos);
+//				Toast.makeText(AttendeeList.this, attendee, Toast.LENGTH_LONG).show();
+//				return true;
+//			}
+//        	
+//        });
     }
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
     	getMenuInflater().inflate(R.menu.main, menu);
     	return true;
+    }
+    
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+    		ContextMenuInfo menuInfo) {
+    	super.onCreateContextMenu(menu, v, menuInfo);
+    	final AdapterContextMenuInfo adapter = (AdapterContextMenuInfo) menuInfo;
+    	
+    	MenuItem removeItem = menu.add("Remove");
+    	removeItem.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+			
+			@Override
+			public boolean onMenuItemClick(MenuItem item) {
+				dao.delete(attendees.get(adapter.position));
+				loadAttendees();
+				return true;
+			}
+		});
     }
     
     @Override
@@ -64,5 +101,11 @@ public class AttendeeList extends Activity {
     		break;
     	}
     	return super.onMenuItemSelected(featureId, item);
+    }
+    
+    @Override
+    protected void onResume() {
+    	super.onResume();
+    	loadAttendees();
     }
 }
