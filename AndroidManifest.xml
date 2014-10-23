@@ -32,6 +32,11 @@
             android:label="@string/title_activity_attendee_create"
             android:parentActivityName="com.mazariolli.android.classattendees.activity.AttendeeList" >
         </activity>
+        <activity
+            android:name="com.mazariolli.android.classattendees.activity.TestActivity"
+            android:label="@string/title_activity_test"
+            android:parentActivityName="com.mazariolli.android.classattendees.activity.AttendeeList" >
+        </activity>
         
         <receiver android:name="com.mazariolli.android.classattendees.receiver.SMSReceiver" android:enabled="true">
             <intent-filter>

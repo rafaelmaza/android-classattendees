@@ -153,6 +153,9 @@ public class AttendeeList extends Activity {
     	case R.id.menu_main__sync:
     		new ScoreSyncTask(this, attendees).execute();
     		break;
+    	case R.id.menu_main__tests:
+    		startActivity(new Intent(this, TestActivity.class));
+    		break;
     	}
     	return super.onMenuItemSelected(featureId, item);
     }
