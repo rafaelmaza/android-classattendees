@@ -5,8 +5,13 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="18" />
+        android:minSdkVersion="11"
+        android:targetSdkVersion="19" />
+    
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +19,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.mazariolli.android.classattendees.AttendeeList"
+            android:name="com.mazariolli.android.classattendees.activity.AttendeeList"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,9 +28,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.mazariolli.android.classattendees.AttendeeCreate"
-            android:label="@string/title_activity_attendee_create" >
+            android:name="com.mazariolli.android.classattendees.activity.AttendeeCreate"
+            android:label="@string/title_activity_attendee_create"
+            android:parentActivityName="com.mazariolli.android.classattendees.activity.AttendeeList" >
         </activity>
+        
+        <receiver android:name="com.mazariolli.android.classattendees.receiver.SMSReceiver" android:enabled="true">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
