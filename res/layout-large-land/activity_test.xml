@@ -3,11 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:baselineAligned="false">
+    android:baselineAligned="false" >
     
     <fragment android:name="com.mazariolli.android.classattendees.fragment.TestListFragment"
         android:id="@+id/activity_test__list"
-        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent" />
+    
+    <fragment android:name="com.mazariolli.android.classattendees.fragment.TestViewFragment"
+        android:id="@+id/activity_test__view"
+        android:layout_weight="1"
+        android:layout_width="0dp"
         android:layout_height="match_parent" />
 
 </LinearLayout>

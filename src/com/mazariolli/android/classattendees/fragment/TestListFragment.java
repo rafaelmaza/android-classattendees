@@ -12,9 +12,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.mazariolli.android.classattendees.R;
+import com.mazariolli.android.classattendees.activity.TestActivity;
 import com.mazariolli.android.classattendees.dao.Test;
 
 public class TestListFragment extends Fragment {
@@ -42,7 +42,9 @@ public class TestListFragment extends Fragment {
 			public void onItemClick(AdapterView<?> adapter, View view, int pos,
 					long id) {
 				Test selectedTest = (Test) adapter.getItemAtPosition(pos);
-				Toast.makeText(getActivity(), "Prova selecionada: " + selectedTest.getSubject(), Toast.LENGTH_LONG).show();
+				TestActivity activity = (TestActivity) getActivity();
+				activity.showTest(selectedTest);
+//				Toast.makeText(getActivity(), "Prova selecionada: " + selectedTest.getSubject(), Toast.LENGTH_LONG).show();
 			}
 		});
 		

@@ -1,9 +1,11 @@
 package com.mazariolli.android.classattendees.dao;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Test {
+@SuppressWarnings("serial")
+public class Test implements Serializable {
 	
 	private String date;
 	private String subject;

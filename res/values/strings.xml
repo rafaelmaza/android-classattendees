@@ -4,6 +4,8 @@
     <string name="app_name">Agenda</string>
     <string name="title_activity_attendee_create">Novo</string>
     <string name="title_activity_test">Provas</string>
+    <string name="title_fragment_test_view">Detalhes da prova</string>
+    <string name="title_activity_map">Mapa</string>
     <string name="name">Nome</string>
     <string name="website">Site</string>
     <string name="address">Endereço</string>

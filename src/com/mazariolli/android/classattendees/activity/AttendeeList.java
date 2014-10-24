@@ -156,6 +156,9 @@ public class AttendeeList extends Activity {
     	case R.id.menu_main__tests:
     		startActivity(new Intent(this, TestActivity.class));
     		break;
+    	case R.id.menu_main__map:
+    		startActivity(new Intent(this, MapActivity.class));
+    		break;
     	}
     	return super.onMenuItemSelected(featureId, item);
     }
